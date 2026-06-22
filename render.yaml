@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: chess-puzzle-solver
+    env: python
+    branch: main
+    buildCommand: pip install -r frontend_code_analysis/requirements.txt -r chess-puzzle-solver-backend/chess-puzzle-solver/requirements.txt
+    startCommand: bash start.sh
+    plan: free
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: 1
