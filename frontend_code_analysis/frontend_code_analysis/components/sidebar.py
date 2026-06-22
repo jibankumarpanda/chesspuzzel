@@ -55,9 +55,10 @@ def sidebar() -> rx.Component:
         # Bottom Utility / Dark Mode & Profile
         rx.el.div(
             rx.el.button(
-                rx.icon(
-                    rx.cond(NavigationState.is_dark_mode, "sun", "moon"),
-                    class_name="h-4 w-4 text-zinc-400",
+                rx.cond(
+                    NavigationState.is_dark_mode,
+                    rx.icon("sun", class_name="h-4 w-4 text-zinc-400"),
+                    rx.icon("moon", class_name="h-4 w-4 text-zinc-400"),
                 ),
                 rx.cond(
                     NavigationState.is_dark_mode,
