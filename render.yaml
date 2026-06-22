@@ -3,7 +3,7 @@ services:
     name: chess-puzzle-solver
     env: python
     branch: main
-    buildCommand: pip install -r frontend_code_analysis/requirements.txt -r chess-puzzle-solver-backend/chess-puzzle-solver/requirements.txt
+    buildCommand: rm -rf frontend_code_analysis/reflex.lock && pip install -r frontend_code_analysis/requirements.txt -r chess-puzzle-solver-backend/chess-puzzle-solver/requirements.txt
     startCommand: bash start.sh
     plan: free
     envVars:

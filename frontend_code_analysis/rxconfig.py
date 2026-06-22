@@ -17,4 +17,11 @@ except Exception:
     # Fallback if backend not available yet - will use JSON storage
     pass
 
-config = rx.Config(app_name="frontend_code_analysis", plugins=[rx.plugins.TailwindV4Plugin()])
+config = rx.Config(
+    app_name="frontend_code_analysis",
+    plugins=[
+        rx.plugins.TailwindV4Plugin(),
+        rx.plugins.SitemapPlugin(),
+        rx.plugins.RadixThemesPlugin(theme="light"),
+    ],
+)
