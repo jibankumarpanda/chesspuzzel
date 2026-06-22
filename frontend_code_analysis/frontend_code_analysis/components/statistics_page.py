@@ -41,6 +41,7 @@ def _metric_card(
                 sublabel,
                 class_name="font-mono text-[10px] text-zinc-500 mt-1 tracking-wider",
             ),
+            rx.el.fragment(),
         ),
         class_name="bg-zinc-950 border border-zinc-900 p-5 rounded-xl",
     )
@@ -248,6 +249,7 @@ def _alerts() -> rx.Component:
             ),
             class_name="flex gap-3 items-center p-3 bg-red-950/30 border border-red-500/30 rounded-lg w-full mb-3",
         ),
+        rx.el.fragment(),
     )
 
 

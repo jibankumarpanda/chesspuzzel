@@ -172,6 +172,7 @@ def _solver_controls() -> rx.Component:
                 ),
                 class_name="flex gap-2 items-start p-3 bg-amber-500/5 border border-amber-500/30 rounded-md mt-4",
             ),
+            rx.el.fragment(),
         ),
         rx.el.button(
             rx.cond(
@@ -410,6 +411,7 @@ def _error_banner() -> rx.Component:
             ),
             class_name="flex gap-3 items-center p-4 bg-red-950/30 border border-red-500/30 rounded-lg w-full mb-4",
         ),
+        rx.el.fragment(),
     )
 
 
@@ -450,6 +452,7 @@ def solve_page_content() -> rx.Component:
                 rx.cond(
                     SolverState.has_result & (SolverState.total_steps > 0),
                     _playback_panel(),
+                    rx.el.fragment(),
                 ),
             ),
             _no_dataset_card(),

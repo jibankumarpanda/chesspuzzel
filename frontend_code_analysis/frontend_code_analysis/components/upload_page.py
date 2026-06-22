@@ -322,6 +322,7 @@ def _alert_banners() -> rx.Component:
                 ),
                 class_name="flex gap-3 items-start p-4 bg-red-950/30 border border-red-500/30 rounded-lg w-full mb-3",
             ),
+            rx.el.fragment(),
         ),
         rx.cond(
             PuzzleState.success_msg != "",
@@ -341,6 +342,7 @@ def _alert_banners() -> rx.Component:
                 ),
                 class_name="flex gap-3 items-center p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-lg w-full mb-3",
             ),
+            rx.el.fragment(),
         ),
     )
 
