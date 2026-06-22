@@ -59,13 +59,10 @@ def sidebar() -> rx.Component:
                     rx.cond(NavigationState.is_dark_mode, "sun", "moon"),
                     class_name="h-4 w-4 text-zinc-400",
                 ),
-                rx.el.span(
-                    rx.cond(
-                        NavigationState.is_dark_mode,
-                        "Light Terminal",
-                        "Core Darkmode",
-                    ),
-                    class_name="font-mono text-xs tracking-wider",
+                rx.cond(
+                    NavigationState.is_dark_mode,
+                    rx.el.span("Light Terminal", class_name="font-mono text-xs tracking-wider"),
+                    rx.el.span("Core Darkmode", class_name="font-mono text-xs tracking-wider"),
                 ),
                 on_click=NavigationState.toggle_theme,
                 class_name="flex items-center justify-center gap-2 w-full py-2 px-3 border border-zinc-800 rounded-md bg-zinc-950 hover:bg-zinc-900 hover:border-zinc-700 text-zinc-400 transition-colors",

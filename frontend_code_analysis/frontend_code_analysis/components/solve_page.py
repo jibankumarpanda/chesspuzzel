@@ -179,9 +179,10 @@ def _solver_controls() -> rx.Component:
                 rx.icon("loader", class_name="h-4 w-4 animate-spin"),
                 rx.icon("play", class_name="h-4 w-4"),
             ),
-            rx.el.span(
-                rx.cond(SolverState.is_solving, "SOLVING...", "RUN SOLVER"),
-                class_name="font-mono text-xs tracking-widest",
+            rx.cond(
+                SolverState.is_solving,
+                rx.el.span("SOLVING...", class_name="font-mono text-xs tracking-widest"),
+                rx.el.span("RUN SOLVER", class_name="font-mono text-xs tracking-widest"),
             ),
             disabled=SolverState.is_solving,
             on_click=SolverState.run_solver,
