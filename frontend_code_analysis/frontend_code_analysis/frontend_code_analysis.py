@@ -487,6 +487,9 @@ def statistics_page() -> rx.Component:
 # App Configuration
 app = rx.App(
     head_components=[
+        # Custom favicon — replaces the default Reflex "R" icon
+        rx.el.link(rel="icon", type="image/png", href="/favicon.png"),
+        rx.el.link(rel="shortcut icon", type="image/png", href="/favicon.png"),
         rx.el.link(rel="preconnect", href="https://fonts.googleapis.com"),
         rx.el.link(
             rel="preconnect", href="https://fonts.gstatic.com", cross_origin=""
@@ -495,40 +498,14 @@ app = rx.App(
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap",
             rel="stylesheet",
         ),
+        rx.el.meta(name="description", content="Interactive Chessboard Puzzle Solver using backtracking and constraint-satisfaction algorithms."),
+        rx.el.meta(name="author", content="CS Lab Project"),
     ],
 )
 
-# Debug: log app wrapper/head component types to help locate compile-time issues
-import logging as _logging
-try:
-    _logging.warning("App head_components types: %s", [type(h) for h in getattr(app, "head_components", [])])
-    _logging.warning("App wrap components: %s", getattr(app, "app_wrap_components", None))
-except Exception:
-    pass
-
-app.add_page(index, route="/")
-app.add_page(upload_page, route="/upload")
-app.add_page(solve_page, route="/solve")
-app.add_page(history_page, route="/history", on_load=HistoryState.refresh)
-app.add_page(statistics_page, route="/statistics", on_load=StatisticsState.load)
-app.add_page(about, route="/about")
-
-# Debug: inspect registered page callables and their return types
-try:
-    _pages_info = []
-    for name, fn in [
-        ("index", index),
-        ("upload_page", upload_page),
-        ("solve_page", solve_page),
-        ("history_page", history_page),
-        ("statistics_page", statistics_page),
-        ("about", about),
-    ]:
-        try:
-            ret = fn()
-            _pages_info.append((name, type(fn), type(ret)))
-        except Exception as _e:
-            _pages_info.append((name, type(fn), f"call-failed: {_e}"))
-    _logging.warning("Registered pages and return types: %s", _pages_info)
-except Exception:
-    pass
+app.add_page(index, route="/", title="Chess Puzzle Solver")
+app.add_page(upload_page, route="/upload", title="Upload Dataset | Chess Puzzle Solver")
+app.add_page(solve_page, route="/solve", title="Constraint Engine | Chess Puzzle Solver")
+app.add_page(history_page, route="/history", title="History | Chess Puzzle Solver", on_load=HistoryState.refresh)
+app.add_page(statistics_page, route="/statistics", title="Statistics | Chess Puzzle Solver", on_load=StatisticsState.load)
+app.add_page(about, route="/about", title="About | Chess Puzzle Solver")
