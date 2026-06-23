@@ -1,0 +1,363 @@
+--- frontend_code_analysis\components\chessboard.py line 7
+0004: 
+0005: def _square(sq) -> rx.Component:
+0006:     return rx.el.div(
+0007:         rx.cond(
+0008:             sq["has_piece"].to(bool),
+0009:             rx.el.span(
+0010:                 SolverState.current_glyph,
+0011:                 class_name="text-amber-400 drop-shadow-[0_0_8px_rgba(245,158,11,0.6)] transition-all duration-300",
+0012:                 style={"fontSize": "min(5vw, 2.25rem)"},
+0013:             ),
+--- frontend_code_analysis\components\chessboard.py line 16
+0013:             ),
+0014:             rx.el.span(""),
+0015:         ),
+0016:         class_name=rx.cond(
+0017:             sq["is_dark"].to(bool),
+0018:             "aspect-square flex items-center justify-center bg-zinc-900 transition-colors",
+0019:             "aspect-square flex items-center justify-center bg-zinc-800/40 transition-colors",
+0020:         ),
+0021:     )
+0022: 
+--- frontend_code_analysis\components\history_page.py line 6
+0003: 
+0004: 
+0005: def _backend_banner() -> rx.Component:
+0006:     return rx.cond(
+0007:         HistoryState.db_available,
+0008:         rx.el.div(
+0009:             rx.icon("database", class_name="h-4 w-4 text-emerald-400 shrink-0"),
+0010:             rx.el.p(
+0011:                 HistoryState.db_note,
+0012:                 class_name="font-mono text-[11px] text-emerald-400/90",
+--- frontend_code_analysis\components\history_page.py line 32
+0029: 
+0030: def _alerts() -> rx.Component:
+0031:     return rx.el.div(
+0032:         rx.cond(
+0033:             HistoryState.error_msg != "",
+0034:             rx.el.div(
+0035:                 rx.icon(
+0036:                     "octagon_alert", class_name="h-5 w-5 text-red-500 shrink-0"
+0037:                 ),
+0038:                 rx.el.p(
+--- frontend_code_analysis\components\history_page.py line 51
+0048:             ),
+0049:             rx.fragment(),
+0050:         ),
+0051:         rx.cond(
+0052:             HistoryState.success_msg != "",
+0053:             rx.el.div(
+0054:                 rx.icon(
+0055:                     "circle-check",
+0056:                     class_name="h-5 w-5 text-emerald-400 shrink-0",
+0057:                 ),
+--- frontend_code_analysis\components\history_page.py line 208
+0205: 
+0206: 
+0207: def _delete_confirm() -> rx.Component:
+0208:     return rx.cond(
+0209:         HistoryState.confirm_delete_id > 0,
+0210:         rx.el.div(
+0211:             rx.el.div(
+0212:                 rx.el.div(
+0213:                     rx.icon(
+0214:                         "triangle-alert", class_name="h-6 w-6 text-red-400"
+--- frontend_code_analysis\components\history_page.py line 313
+0310:             ),
+0311:             class_name="flex flex-wrap items-center gap-3 mb-6",
+0312:         ),
+0313:         rx.cond(
+0314:             HistoryState.total_rows > 0,
+0315:             _table(),
+0316:             _empty(),
+0317:         ),
+0318:         _delete_confirm(),
+0319:     )
+--- frontend_code_analysis\components\sidebar.py line 11
+0008:     return rx.el.button(
+0009:         rx.icon(
+0010:             icon_tag,
+0011:             class_name=rx.cond(
+0012:                 is_active, "h-5 w-5 text-amber-500", "h-5 w-5 text-zinc-400"
+0013:             ),
+0014:         ),
+0015:         rx.el.span(label, class_name="font-mono text-sm tracking-wide"),
+0016:         on_click=lambda: NavigationState.set_page(route),
+0017:         class_name=rx.cond(
+--- frontend_code_analysis\components\sidebar.py line 17
+0014:         ),
+0015:         rx.el.span(label, class_name="font-mono text-sm tracking-wide"),
+0016:         on_click=lambda: NavigationState.set_page(route),
+0017:         class_name=rx.cond(
+0018:             is_active,
+0019:             "flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-zinc-900 border border-amber-500/30 text-amber-500 font-semibold transition-all duration-200",
+0020:             "flex items-center gap-3 w-full px-4 py-3 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/60 border border-transparent hover:border-zinc-800 transition-all duration-200",
+0021:         ),
+0022:     )
+0023: 
+--- frontend_code_analysis\components\sidebar.py line 58
+0055:         # Bottom Utility / Dark Mode & Profile
+0056:         rx.el.div(
+0057:             rx.el.button(
+0058:                 rx.cond(
+0059:                     NavigationState.is_dark_mode,
+0060:                     rx.icon("sun", class_name="h-4 w-4 text-zinc-400"),
+0061:                     rx.icon("moon", class_name="h-4 w-4 text-zinc-400"),
+0062:                 ),
+0063:                 rx.cond(
+0064:                     NavigationState.is_dark_mode,
+--- frontend_code_analysis\components\sidebar.py line 63
+0060:                     rx.icon("sun", class_name="h-4 w-4 text-zinc-400"),
+0061:                     rx.icon("moon", class_name="h-4 w-4 text-zinc-400"),
+0062:                 ),
+0063:                 rx.cond(
+0064:                     NavigationState.is_dark_mode,
+0065:                     rx.el.span("Light Terminal", class_name="font-mono text-xs tracking-wider"),
+0066:                     rx.el.span("Core Darkmode", class_name="font-mono text-xs tracking-wider"),
+0067:                 ),
+0068:                 on_click=NavigationState.toggle_theme,
+0069:                 class_name="flex items-center justify-center gap-2 w-full py-2 px-3 border border-zinc-800 rounded-md bg-zinc-950 hover:bg-zinc-900 hover:border-zinc-700 text-zinc-400 transition-colors",
+--- frontend_code_analysis\components\solve_page.py line 15
+0012:         ),
+0013:         rx.el.p(
+0014:             value,
+0015:             class_name=rx.cond(
+0016:                 accent,
+0017:                 "font-mono text-xl text-amber-400 font-bold mt-1",
+0018:                 "font-mono text-xl text-zinc-100 font-bold mt-1",
+0019:             ),
+0020:         ),
+0021:         class_name="bg-zinc-900/40 border border-zinc-900 rounded-lg p-3",
+--- frontend_code_analysis\components\solve_page.py line 128
+0125:                     on_change=SolverState.set_max_solutions.debounce(300),
+0126:                     type="number",
+0127:                     disabled=SolverState.find_all,
+0128:                     class_name=rx.cond(
+0129:                         SolverState.find_all,
+0130:                         "w-full bg-zinc-900/50 border border-zinc-800 rounded-md px-3 py-2 font-mono text-xs text-zinc-600 cursor-not-allowed",
+0131:                         "w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 font-mono text-xs text-zinc-200 focus:outline-none focus:border-amber-500/60",
+0132:                     ),
+0133:                 ),
+0134:                 class_name="flex-1",
+--- frontend_code_analysis\components\solve_page.py line 137
+0134:                 class_name="flex-1",
+0135:             ),
+0136:             rx.el.button(
+0137:                 rx.cond(
+0138:                     SolverState.find_all,
+0139:                     rx.icon(
+0140:                         "square_check", class_name="h-4 w-4 text-amber-400"
+0141:                     ),
+0142:                     rx.icon("square", class_name="h-4 w-4 text-zinc-500"),
+0143:                 ),
+--- frontend_code_analysis\components\solve_page.py line 149
+0146:                 class_name="flex items-center gap-2 px-3 py-2 bg-zinc-900 border border-zinc-800 hover:border-amber-500/40 text-zinc-300 rounded-md transition-colors h-fit mt-6",
+0147:             ),
+0148:             rx.el.button(
+0149:                 rx.cond(
+0150:                     SolverState.record_steps,
+0151:                     rx.icon(
+0152:                         "square_check", class_name="h-4 w-4 text-amber-400"
+0153:                     ),
+0154:                     rx.icon("square", class_name="h-4 w-4 text-zinc-500"),
+0155:                 ),
+--- frontend_code_analysis\components\solve_page.py line 162
+0159:             ),
+0160:             class_name="flex flex-col md:flex-row gap-3",
+0161:         ),
+0162:         rx.cond(
+0163:             SolverState.performance_warning != "",
+0164:             rx.el.div(
+0165:                 rx.icon(
+0166:                     "triangle-alert",
+0167:                     class_name="h-4 w-4 text-amber-400 shrink-0 mt-0.5",
+0168:                 ),
+--- frontend_code_analysis\components\solve_page.py line 178
+0175:             rx.fragment(),
+0176:         ),
+0177:         rx.el.button(
+0178:             rx.cond(
+0179:                 SolverState.is_solving,
+0180:                 rx.icon("loader", class_name="h-4 w-4 animate-spin"),
+0181:                 rx.icon("play", class_name="h-4 w-4"),
+0182:             ),
+0183:             rx.cond(
+0184:                 SolverState.is_solving,
+--- frontend_code_analysis\components\solve_page.py line 183
+0180:                 rx.icon("loader", class_name="h-4 w-4 animate-spin"),
+0181:                 rx.icon("play", class_name="h-4 w-4"),
+0182:             ),
+0183:             rx.cond(
+0184:                 SolverState.is_solving,
+0185:                 rx.el.span("SOLVING...", class_name="font-mono text-xs tracking-widest"),
+0186:                 rx.el.span("RUN SOLVER", class_name="font-mono text-xs tracking-widest"),
+0187:             ),
+0188:             disabled=SolverState.is_solving,
+0189:             on_click=SolverState.run_solver,
+--- frontend_code_analysis\components\solve_page.py line 190
+0187:             ),
+0188:             disabled=SolverState.is_solving,
+0189:             on_click=SolverState.run_solver,
+0190:             class_name=rx.cond(
+0191:                 SolverState.is_solving,
+0192:                 "flex items-center justify-center gap-2 mt-4 w-full py-3 bg-zinc-800 text-zinc-500 rounded-md uppercase font-bold cursor-not-allowed",
+0193:                 "flex items-center justify-center gap-2 mt-4 w-full py-3 bg-amber-500 hover:bg-amber-400 text-zinc-950 rounded-md uppercase font-bold transition-colors",
+0194:             ),
+0195:         ),
+0196:         class_name="bg-zinc-950 border border-zinc-900 p-5 rounded-xl",
+--- frontend_code_analysis\components\solve_page.py line 315
+0312:                 on_click=SolverState.step_prev,
+0313:                 class_name="px-3 py-2 bg-zinc-900 border border-zinc-800 hover:border-amber-500/40 text-zinc-300 rounded transition-colors",
+0314:             ),
+0315:             rx.cond(
+0316:                 SolverState.is_playing,
+0317:                 rx.el.button(
+0318:                     rx.icon("pause", class_name="h-4 w-4"),
+0319:                     on_click=SolverState.stop_playback,
+0320:                     class_name="px-3 py-2 bg-amber-500/20 border border-amber-500/40 text-amber-400 rounded transition-colors",
+0321:                 ),
+--- frontend_code_analysis\components\solve_page.py line 377
+0374:             _solution_navigator(),
+0375:             class_name="flex items-center justify-between flex-wrap gap-3 mb-4",
+0376:         ),
+0377:         rx.cond(
+0378:             SolverState.has_result & (SolverState.total_solutions > 0),
+0379:             chessboard(),
+0380:             rx.el.div(
+0381:                 rx.icon(
+0382:                     "circle-dashed",
+0383:                     class_name="h-10 w-10 text-zinc-700 mx-auto mb-2",
+--- frontend_code_analysis\components\solve_page.py line 397
+0394: 
+0395: 
+0396: def _error_banner() -> rx.Component:
+0397:     return rx.cond(
+0398:         SolverState.error_msg != "",
+0399:         rx.el.div(
+0400:             rx.icon(
+0401:                 "octagon_alert", class_name="h-5 w-5 text-red-500 shrink-0"
+0402:             ),
+0403:             rx.el.p(
+--- frontend_code_analysis\components\solve_page.py line 433
+0430:             class_name="text-zinc-400 mt-2 text-sm leading-relaxed mb-6 max-w-2xl",
+0431:         ),
+0432:         _error_banner(),
+0433:         rx.cond(
+0434:             PuzzleState.has_dataset,
+0435:             rx.el.div(
+0436:                 _dataset_review(),
+0437:                 rx.el.div(
+0438:                     rx.el.div(
+0439:                         _solver_controls(),
+--- frontend_code_analysis\components\solve_page.py line 452
+0449:                     _stats_panel(),
+0450:                     class_name="mb-6",
+0451:                 ),
+0452:                 rx.cond(
+0453:                     SolverState.has_result & (SolverState.total_steps > 0),
+0454:                     _playback_panel(),
+0455:                     rx.fragment(),
+0456:                 ),
+0457:             ),
+0458:             _no_dataset_card(),
+--- frontend_code_analysis\components\statistics_page.py line 32
+0029:         ),
+0030:         rx.el.p(
+0031:             value,
+0032:             class_name=rx.cond(
+0033:                 accent,
+0034:                 "font-mono text-2xl text-amber-400 font-bold mt-1.5",
+0035:                 "font-mono text-2xl text-zinc-100 font-bold mt-1.5",
+0036:             ),
+0037:         ),
+0038:         rx.cond(
+--- frontend_code_analysis\components\statistics_page.py line 38
+0035:                 "font-mono text-2xl text-zinc-100 font-bold mt-1.5",
+0036:             ),
+0037:         ),
+0038:         rx.cond(
+0039:             sublabel != "",
+0040:             rx.el.p(
+0041:                 sublabel,
+0042:                 class_name="font-mono text-[10px] text-zinc-500 mt-1 tracking-wider",
+0043:             ),
+0044:             rx.fragment(),
+--- frontend_code_analysis\components\statistics_page.py line 235
+0232: 
+0233: 
+0234: def _alerts() -> rx.Component:
+0235:     return rx.cond(
+0236:         StatisticsState.error_msg != "",
+0237:         rx.el.div(
+0238:             rx.icon(
+0239:                 "octagon_alert", class_name="h-5 w-5 text-red-500 shrink-0"
+0240:             ),
+0241:             rx.el.p(
+--- frontend_code_analysis\components\statistics_page.py line 294
+0291:             class_name="text-zinc-400 mt-2 text-sm leading-relaxed mb-6 max-w-2xl",
+0292:         ),
+0293:         _alerts(),
+0294:         rx.cond(
+0295:             StatisticsState.has_data,
+0296:             rx.el.div(
+0297:                 rx.el.div(
+0298:                     _metric_card(
+0299:                         "Total Puzzles",
+0300:                         StatisticsState.total_puzzles.to_string(),
+--- frontend_code_analysis\components\upload_page.py line 203
+0200: 
+0201: 
+0202: def _dataset_summary() -> rx.Component:
+0203:     return rx.cond(
+0204:         PuzzleState.has_dataset,
+0205:         rx.el.div(
+0206:             rx.el.div(
+0207:                 rx.el.div(
+0208:                     rx.icon(
+0209:                         "circle-check", class_name="h-5 w-5 text-emerald-400"
+--- frontend_code_analysis\components\upload_page.py line 273
+0270: 
+0271: 
+0272: def _backend_banner() -> rx.Component:
+0273:     return rx.cond(
+0274:         PuzzleState.backend_available,
+0275:         rx.el.div(
+0276:             rx.icon(
+0277:                 "circle-check", class_name="h-4 w-4 text-emerald-400 shrink-0"
+0278:             ),
+0279:             rx.el.p(
+--- frontend_code_analysis\components\upload_page.py line 301
+0298: 
+0299: def _alert_banners() -> rx.Component:
+0300:     return rx.el.div(
+0301:         rx.cond(
+0302:             PuzzleState.parse_error != "",
+0303:             rx.el.div(
+0304:                 rx.icon(
+0305:                     "octagon_alert", class_name="h-5 w-5 text-red-500 shrink-0"
+0306:                 ),
+0307:                 rx.el.div(
+--- frontend_code_analysis\components\upload_page.py line 327
+0324:             ),
+0325:             rx.fragment(),
+0326:         ),
+0327:         rx.cond(
+0328:             PuzzleState.success_msg != "",
+0329:             rx.el.div(
+0330:                 rx.icon(
+0331:                     "circle-check",
+0332:                     class_name="h-5 w-5 text-emerald-400 shrink-0",
+0333:                 ),
+--- frontend_code_analysis\frontend_code_analysis.py line 28
+0025:             rx.el.div(content, class_name="max-w-7xl mx-auto"),
+0026:             class_name="flex-1 bg-zinc-950 text-zinc-100 p-8 overflow-y-auto",
+0027:         ),
+0028:         class_name=rx.cond(
+0029:             NavigationState.is_dark_mode,
+0030:             "flex h-screen w-screen bg-zinc-950 font-sans",
+0031:             "flex h-screen w-screen bg-zinc-100 font-sans invert",  # Simulated inverted light mode terminal
+0032:         ),
+0033:     )
+0034: 

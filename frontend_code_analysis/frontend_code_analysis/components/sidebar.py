@@ -5,19 +5,19 @@ from frontend_code_analysis.states.navigation import NavigationState
 def sidebar_link(label: str, icon_tag: str, route: str) -> rx.Component:
     is_active = NavigationState.current_page == route
 
-    return rx.el.button(
-        rx.icon(
-            icon_tag,
-            class_name=rx.cond(
-                is_active, "h-5 w-5 text-amber-500", "h-5 w-5 text-zinc-400"
-            ),
+    return rx.cond(
+        is_active,
+        rx.el.button(
+            rx.icon(icon_tag, class_name="h-5 w-5 text-amber-500"),
+            rx.el.span(label, class_name="font-mono text-sm tracking-wide"),
+            on_click=lambda: NavigationState.set_page(route),
+            class_name="flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-zinc-900 border border-amber-500/30 text-amber-500 font-semibold transition-all duration-200",
         ),
-        rx.el.span(label, class_name="font-mono text-sm tracking-wide"),
-        on_click=lambda: NavigationState.set_page(route),
-        class_name=rx.cond(
-            is_active,
-            "flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-zinc-900 border border-amber-500/30 text-amber-500 font-semibold transition-all duration-200",
-            "flex items-center gap-3 w-full px-4 py-3 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/60 border border-transparent hover:border-zinc-800 transition-all duration-200",
+        rx.el.button(
+            rx.icon(icon_tag, class_name="h-5 w-5 text-zinc-400"),
+            rx.el.span(label, class_name="font-mono text-sm tracking-wide"),
+            on_click=lambda: NavigationState.set_page(route),
+            class_name="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/60 border border-transparent hover:border-zinc-800 transition-all duration-200",
         ),
     )
 

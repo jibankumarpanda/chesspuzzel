@@ -22,6 +22,5 @@ config = rx.Config(
     plugins=[
         rx.plugins.TailwindV4Plugin(),
         rx.plugins.SitemapPlugin(),
-        rx.plugins.RadixThemesPlugin(theme="light"),
     ],
 )

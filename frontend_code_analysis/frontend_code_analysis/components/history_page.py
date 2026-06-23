@@ -46,7 +46,7 @@ def _alerts() -> rx.Component:
                 ),
                 class_name="flex gap-3 items-center p-3 bg-red-950/30 border border-red-500/30 rounded-lg w-full mb-3",
             ),
-            rx.el.fragment(),
+            rx.fragment(),
         ),
         rx.cond(
             HistoryState.success_msg != "",
@@ -66,7 +66,7 @@ def _alerts() -> rx.Component:
                 ),
                 class_name="flex gap-3 items-center p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-lg w-full mb-3",
             ),
-            rx.el.fragment(),
+            rx.fragment(),
         ),
     )
 
@@ -258,7 +258,7 @@ def _delete_confirm() -> rx.Component:
             ),
             class_name="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4",
         ),
-        rx.el.fragment(),
+        rx.fragment(),
     )
 
 

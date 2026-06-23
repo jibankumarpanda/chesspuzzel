@@ -25,11 +25,9 @@ def lab_shell(content: rx.Component) -> rx.Component:
             rx.el.div(content, class_name="max-w-7xl mx-auto"),
             class_name="flex-1 bg-zinc-950 text-zinc-100 p-8 overflow-y-auto",
         ),
-        class_name=rx.cond(
-            NavigationState.is_dark_mode,
-            "flex h-screen w-screen bg-zinc-950 font-sans",
-            "flex h-screen w-screen bg-zinc-100 font-sans invert",  # Simulated inverted light mode terminal
-        ),
+        # Avoid using rx.cond for the root class_name to keep the tree
+        # strictly composed of Reflex components/attrs during compile.
+        class_name="flex h-screen w-screen font-sans",
     )
 
 
@@ -500,9 +498,37 @@ app = rx.App(
     ],
 )
 
+# Debug: log app wrapper/head component types to help locate compile-time issues
+import logging as _logging
+try:
+    _logging.warning("App head_components types: %s", [type(h) for h in getattr(app, "head_components", [])])
+    _logging.warning("App wrap components: %s", getattr(app, "app_wrap_components", None))
+except Exception:
+    pass
+
 app.add_page(index, route="/")
 app.add_page(upload_page, route="/upload")
 app.add_page(solve_page, route="/solve")
 app.add_page(history_page, route="/history", on_load=HistoryState.refresh)
 app.add_page(statistics_page, route="/statistics", on_load=StatisticsState.load)
 app.add_page(about, route="/about")
+
+# Debug: inspect registered page callables and their return types
+try:
+    _pages_info = []
+    for name, fn in [
+        ("index", index),
+        ("upload_page", upload_page),
+        ("solve_page", solve_page),
+        ("history_page", history_page),
+        ("statistics_page", statistics_page),
+        ("about", about),
+    ]:
+        try:
+            ret = fn()
+            _pages_info.append((name, type(fn), type(ret)))
+        except Exception as _e:
+            _pages_info.append((name, type(fn), f"call-failed: {_e}"))
+    _logging.warning("Registered pages and return types: %s", _pages_info)
+except Exception:
+    pass

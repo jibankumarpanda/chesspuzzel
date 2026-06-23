@@ -1,0 +1,8 @@
+frontend_code_analysis\components\chessboard.py:16:unknown: str branches
+frontend_code_analysis\components\sidebar.py:17:unknown: str branches
+frontend_code_analysis\components\sidebar.py:11:unknown: str branches
+frontend_code_analysis\components\solve_page.py:15:unknown: str branches
+frontend_code_analysis\components\solve_page.py:190:unknown: str branches
+frontend_code_analysis\components\solve_page.py:128:unknown: str branches
+frontend_code_analysis\components\statistics_page.py:32:unknown: str branches
+frontend_code_analysis\frontend_code_analysis.py:28:unknown: str branches
