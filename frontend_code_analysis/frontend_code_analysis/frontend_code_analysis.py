@@ -500,6 +500,8 @@ app = rx.App(
         ),
         rx.el.meta(name="description", content="Interactive Chessboard Puzzle Solver using backtracking and constraint-satisfaction algorithms."),
         rx.el.meta(name="author", content="CS Lab Project"),
+        # Hide the "Built with Reflex" badge (show_built_with_reflex not supported in this version)
+        rx.el.style("a[href*='reflex.dev'] { display: none !important; }"),
     ],
 )
 
